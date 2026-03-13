@@ -94,7 +94,10 @@ while guess != secret and guesses_used < guesses_allowed:
             feedback = f"Well done! You guessed the secret number in {guesses_used} guesses."
 
     else:
-        feedback = "You lost!"
+        feedback = "You have no more guesses. You lost the round!"
+
+    if guesses_used == guesses_allowed - 1:
+        print("Careful, you only have one guess left!")
 
 print()
 print(feedback)
