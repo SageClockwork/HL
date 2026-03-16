@@ -164,7 +164,6 @@ while rounds_played < num_rounds and end_game=="no":
     secret = random.randint(low_num, high_num)
     print(secret)
 
-    rounds_played += 1
 
     # if users are in infinite mode, increase number of rounds!
     if mode == "infinite":
@@ -205,34 +204,68 @@ while rounds_played < num_rounds and end_game=="no":
 
 
         elif guess == secret:
+            round_result = "won"
+            history_item = f"Round: {rounds_played} - {round_result} in {guesses_used} guesses"
+            game_history.append(history_item)
+
             if guesses_used == 1:
                 feedback = "Wow, you got lucky. You got it on your first guess"
             elif guesses_used == guesses_allowed:
-                feedback = f"Phew! You got it in {guesses_used} guesses."
+                feedback = f"Phew! You got it on your last guess."
             else:
                 feedback = f"Well done! You guessed the secret number in {guesses_used} guesses."
 
         else:
+            round_result = "lost"
+            history_item = f"Round: {rounds_played} - {round_result}"
+            game_history.append(history_item)
             feedback = "You have no more guesses. You lost the round!"
 
         if guesses_used == guesses_allowed - 1:
             print("Careful, you only have one guess left!")
+        
 
-    print()
-    print(feedback)
-    print()
-    if end_game == "no":
-        print("End of Round")
         print()
+        print(feedback)
+    
+    print()
+    if end_game == "yes":
+        break
 
-
-print("End of Game")
-print()
+    
+    rounds_played += 1
      
 
 # Game loop ends here
-        
+         
 # Game history / statistics area
+
+
+    history_feedback = f"Round {rounds_played}: {feedback}" 
+
+if rounds_played > 1:
+
+    all_scores.sort()
+    best_score = all_scores[0]
+    worst_score = all_scores[-1]
+    average_score = sum(all_scores) / len(all_scores)
+    
+
+    print("\nStatistics")
+    print(f"Best: {best_score} | Worst; {worst_score} | Average: {average_score:.2f} ")
+    print()
+
+
+    see_history = yes_no("Do you want to see the game history? ")
+    if see_history == "yes":
+        print(game_history)
+
+    
+            
+
+
+
+
         
 
     
