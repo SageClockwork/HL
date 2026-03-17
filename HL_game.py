@@ -205,7 +205,7 @@ while rounds_played < num_rounds and end_game=="no":
 
         elif guess == secret:
             round_result = "won"
-            history_item = f"Round: {rounds_played} - {round_result} in {guesses_used} guesses"
+            history_item = f"Round: {rounds_played+1} - {round_result} in {guesses_used} guesse(s)"
             game_history.append(history_item)
 
             if guesses_used == 1:
@@ -217,9 +217,12 @@ while rounds_played < num_rounds and end_game=="no":
 
         else:
             round_result = "lost"
-            history_item = f"Round: {rounds_played} - {round_result}"
+            history_item = f"Round: {rounds_played+1} - {round_result}"
             game_history.append(history_item)
             feedback = "You have no more guesses. You lost the round!"
+
+            # penalise user for losing game
+            guesses_used += 1
 
         if guesses_used == guesses_allowed - 1:
             print("Careful, you only have one guess left!")
@@ -227,6 +230,7 @@ while rounds_played < num_rounds and end_game=="no":
 
         print()
         print(feedback)
+        
     
     print()
     if end_game == "yes":
@@ -234,6 +238,7 @@ while rounds_played < num_rounds and end_game=="no":
 
     
     rounds_played += 1
+    all_scores.append(guesses_used)
      
 
 # Game loop ends here
@@ -241,9 +246,7 @@ while rounds_played < num_rounds and end_game=="no":
 # Game history / statistics area
 
 
-    history_feedback = f"Round {rounds_played}: {feedback}" 
-
-if rounds_played > 1:
+if rounds_played > 0:
 
     all_scores.sort()
     best_score = all_scores[0]
@@ -253,12 +256,15 @@ if rounds_played > 1:
 
     print("\nStatistics")
     print(f"Best: {best_score} | Worst; {worst_score} | Average: {average_score:.2f} ")
-    print()
+    print()  
+
 
 
     see_history = yes_no("Do you want to see the game history? ")
     if see_history == "yes":
+        print()
         print(game_history)
+        print()
 
     
             
